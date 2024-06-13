@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "~react-image-gallery/styles/css/image-gallery.css";
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+.footer-background {
+  background-image: url("/public/assets/footer/footer-background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.calendar {
+  background: linear-gradient(
+    180deg,
+    rgba(36, 165, 240, 0.33) 0%,
+    rgba(35, 166, 240, 0) 100%
+  );
+}
+
+.report {
+  background: linear-gradient(
+    180deg,
+    rgba(35, 166, 240, 0.38) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.st-card {
+  background: linear-gradient(
+    180deg,
+    rgba(139, 213, 255, 0.45) 5.5%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.class-card {
+  background: linear-gradient(
+    270deg,
+    rgba(179, 227, 255, 0.45) 2%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.ql-editor {
+  min-height: 320px; /* Adjust based on your line-height to simulate 10 lines */
+}
+
+.formBG {
+  background-image: linear-gradient(to bottom, #9ddbff, #ffffff);
+}
