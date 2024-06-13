@@ -15,7 +15,7 @@ export default function useGetTreatmentPlan(id, classId, teacher_id, date) {
         }`
       );
     }
-  }, [classId, teacher_id, date, get, id]);
+  }, [classId, teacher_id, date, id]);
 
   useEffect(() => {
     if (data.message === "success") {
