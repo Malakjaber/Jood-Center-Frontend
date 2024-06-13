@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function useApi() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [cache, setCache] = useState({});
+  const navigate = useNavigate();
 
   const fetchData = async (
     path,
@@ -44,12 +46,13 @@ export default function useApi() {
         return;
       }
     } catch (err) {
-      let errMsg = "An Error Occurred";
+      let errMsg = "An error occured!";
       if (err?.response?.data?.error) {
         errMsg = err.response.data.error;
       }
       setError(errMsg);
       setLoading(false);
+      // navigate("/error", { state: { message: errMsg } });
     } finally {
       setLoading(false);
     }

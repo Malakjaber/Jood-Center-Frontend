@@ -4,32 +4,62 @@ import { useParams } from "react-router-dom";
 import useGetStudentData from "../queries/useGetStudentData";
 import useRoleRedirect from "../hooks/useRoleRedirect";
 import ReportSection from "../global/ReportSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "../global/Calendar";
 import { useAuth } from "../contexts/AuthContext";
 import useGetReports from "../queries/useGetReports";
 import CustomLoader from "../global/CustomLoader";
+import DocsTable from "../global/DocsTable";
+import { CircularProgress, Sheet } from "@mui/joy";
+import SectionNav from "../global/SectionNav";
+
+const reportsHeadCells = [
+  {
+    id: "id",
+    label: "Id",
+  },
+  {
+    id: "teacherName",
+    label: "Teacher",
+  },
+  {
+    id: "date",
+    label: "Date",
+  },
+  {
+    id: "content",
+    label: "Content",
+  },
+];
 
 export default function StudentPageLayout() {
   const { user } = useAuth();
   const { id } = useParams();
-  const [date, setDate] = useState(new Date());
+  const [reportsLimit, setReportsLimit] = useState(5);
+  const [reportsPage, setReportsPage] = useState(1);
+
   const { studentData, loading } = useGetStudentData(id);
-  const { reports, loading: reportsLoading } = useGetReports(
+  const {
+    reports,
+    count: reportsCount,
+    loading: reportsLoading,
+  } = useGetReports(
     studentData.st_id,
     user?.userId,
-    date
+    null,
+    null,
+    reportsLimit,
+    reportsPage
   );
 
   useRoleRedirect(["teacher", "co_manager", "manager"]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [reports, studentData]); // Add `id` dependency to scroll when the route changes
 
   if (loading || reportsLoading) {
     return <CustomLoader />;
   }
-
-  const onCalendarChange = (event) => {
-    setDate(event.value);
-  };
 
   return (
     <>
@@ -57,17 +87,38 @@ export default function StudentPageLayout() {
           ) : null}
         </div>
       </div>
-      <Calendar
+      <SectionNav id="reports" title={`${studentData.name} Reports`} />
+      {!reportsLoading ? (
+        <div className="min-h-[50vh] flex justify-center items-center">
+          <DocsTable
+            rows={reports}
+            headCells={reportsHeadCells}
+            cellLinkTo={"report"}
+            emptyMsg={"No Reports Found!"}
+            setPage={setReportsPage}
+            limit={reportsLimit}
+            page={reportsPage}
+            count={reportsCount}
+          />
+        </div>
+      ) : (
+        <Sheet
+          sx={{
+            width: "100vw",
+            minHeight: "50vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress variant="solid" color="neutral" />
+        </Sheet>
+      )}
+      {/* <Calendar
         onCalendarChange={onCalendarChange}
         image={"teacher-calendar.png"}
         date={date}
-      />
-      <ReportSection
-        teacherName={user.username}
-        studentName={studentData.name}
-        date={date}
-        report={reports[0]}
-      />
+      /> */}
     </>
   );
 }
