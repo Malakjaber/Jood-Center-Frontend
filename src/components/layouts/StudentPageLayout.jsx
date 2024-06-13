@@ -33,6 +33,7 @@ const reportsHeadCells = [
 ];
 
 export default function StudentPageLayout() {
+  useRoleRedirect(["teacher", "co_manager", "manager"]);
   const { user } = useAuth();
   const { id } = useParams();
   const [reportsLimit, setReportsLimit] = useState(5);
@@ -45,14 +46,13 @@ export default function StudentPageLayout() {
     loading: reportsLoading,
   } = useGetReports(
     studentData.st_id,
-    user?.userId,
+    user?.role === "teacher" ? user?.userId : null,
     null,
     null,
     reportsLimit,
     reportsPage
   );
 
-  useRoleRedirect(["teacher", "co_manager", "manager"]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [reports, studentData]); // Add `id` dependency to scroll when the route changes

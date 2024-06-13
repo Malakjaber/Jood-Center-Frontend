@@ -8,7 +8,7 @@ const useGetReports = (st_id, teacher_id, date, id, limit, page) => {
   const { get, data, error, loading } = useApi();
 
   useEffect(() => {
-    if (st_id || teacher_id) {
+    if (st_id || teacher_id || id) {
       get(
         `/reports?${st_id ? `st_id=${st_id}` : ""}${
           teacher_id ? `&teacher_id=${teacher_id}` : ""

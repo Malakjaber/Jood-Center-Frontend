@@ -1,24 +1,12 @@
-import React from "react";
 import ReportSection from "../global/ReportSection";
-import { useAuth } from "../contexts/AuthContext";
-import useGetStudentByParent from "../queries/useGetStudentByParent";
 import useGetReports from "../queries/useGetReports";
 import CustomLoader from "../global/CustomLoader";
 import { useParams } from "react-router";
 
 export default function ReportPageContainer() {
-  const { user } = useAuth();
   const { id } = useParams();
 
-  const { student } = useGetStudentByParent(user?.userId);
-
-  const { reports, loading } = useGetReports(
-    student?.st_id,
-    null,
-    null,
-    id
-    // selectedDate
-  );
+  const { reports, loading } = useGetReports(null, null, null, id);
 
   if (loading) {
     return <CustomLoader />;
@@ -28,7 +16,7 @@ export default function ReportPageContainer() {
     <div>
       <ReportSection
         teacherName={reports[0]?.teacherName}
-        studentName={student?.name}
+        studentName={reports[0]?.studentName}
         report={reports[0]}
       />
     </div>
