@@ -2,26 +2,19 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import useApi from "../../hooks/useApi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { signInSchema } from "../../validation/Validation";
-import MySnackbar from "../../global/MySnackbar";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function SignIn() {
-  const { post, data, loading, error } = useApi();
   const { signIn, user } = useAuth();
 
-  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
-  const [errorSnackbarMessage, setErrorSnackbarMessage] = useState("");
   // const [selectedRole, setSelectedRole] = useState("parent");
 
   const navigate = useNavigate();
@@ -43,34 +36,19 @@ export default function SignIn() {
         email: values.email,
         password: values.password,
       };
-      post(`/users/signin`, body);
+      signIn(body);
     },
   });
 
-  useEffect(() => {
-    if (data?.message === "success") {
-      signIn({ ...data.userdata });
-      navigate(`/${data.userdata.role}`);
-    }
-  }, [data, error, navigate, signIn]);
-
-  useEffect(() => {
-    if (error) {
-      setErrorSnackbarMessage(error);
-      setOpenErrorSnackbar(true);
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (data?.message === "success") {
+  //     signIn({ ...data.userdata });
+  //     navigate(`/${data.userdata.role}`);
+  //   }
+  // }, [data, error, navigate, signIn]);
 
   return (
     <Container component="main" maxWidth="xs">
-      <MySnackbar
-        severity="error"
-        content={errorSnackbarMessage}
-        open={openErrorSnackbar}
-        handleClose={() => {
-          setOpenErrorSnackbar(false);
-        }}
-      />
       <CssBaseline />
       <Box
         sx={{

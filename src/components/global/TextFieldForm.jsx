@@ -11,7 +11,7 @@ export default function TextFieldForm({
   options,
 }) {
   return (
-    <div className="flex min-h-[100vh]">
+    <div className="flex min-h-[60vh]">
       <div className="w-full p-10">
         <QuillEditor setContent={setContent} />
 

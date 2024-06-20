@@ -10,11 +10,10 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 export default function EditClassPageLayout() {
-  const { teachers, loading: teachersLoading } = useGetJoodTeam(
-    "teachers",
-    159,
-    1,
-    ""
+  const { users: teachers, loading: teachersLoading } = useGetJoodTeam(
+    "teacher",
+    150,
+    1
   );
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarProps, setSnackbarProps] = useState({
@@ -48,9 +47,6 @@ export default function EditClassPageLayout() {
         content: "Class Edited Successfully",
       });
       setOpenSnackbar(true);
-      // setTimeout(() => {
-      //   navigate(-1);
-      // }, 2000);
     }
   }, [data, navigate]);
 

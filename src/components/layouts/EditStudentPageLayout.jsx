@@ -6,7 +6,6 @@ import useGetClasses from "../queries/useGetClasses";
 import { editStudentSchema } from "../validation/Validation";
 import { useEffect, useState } from "react";
 import useApi from "../hooks/useApi";
-import { useAuth } from "../contexts/AuthContext";
 import MySnackbar from "../global/MySnackbar";
 import StudentDetailsForm from "../global/StudentDetailsForm";
 import CustomLoader from "../global/CustomLoader";
@@ -26,7 +25,6 @@ export default function EditStudentPageLayout() {
 
   useRoleRedirect(["co_manager", "manager"]);
   const { id } = useParams();
-  const { user } = useAuth();
   const { studentData, loading } = useGetStudentData(id);
   const {
     name,
@@ -36,9 +34,13 @@ export default function EditStudentPageLayout() {
     medicines,
     phone,
     pathological_case,
-    parent_id,
+    userId: parent_id,
     class_id,
   } = studentData;
+
+  useEffect(() => {
+    console.log(studentData);
+  }, [studentData]);
 
   const formik = useFormik({
     initialValues: {
@@ -55,7 +57,10 @@ export default function EditStudentPageLayout() {
     enableReinitialize: true,
     validationSchema: editStudentSchema,
     onSubmit: (values) => {
-      put(`/students/${st_id}`, values, user.sessionId);
+      put(
+        `/students/${st_id}`,
+        { ...values, userId: values.parent_id },
+      );
     },
   });
 

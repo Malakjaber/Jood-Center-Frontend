@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SectionNav from "../global/SectionNav";
 import StudentsTable from "../global/students/StudentsTable";
 import DebouncedInput from "../global/DebouncedInput";
-import { CircularProgress, Sheet } from "@mui/joy";
+import { CircularProgress, Sheet, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import useGetStudents from "../queries/useGetStudents";
@@ -87,6 +87,7 @@ export default function StudentsSectionContainer({ editable }) {
               alt=""
             />
             <DebouncedInput
+              isDisabled={!students.length && !searchTerm}
               handleSearch={handleSearch}
               placeholder="Search for student"
             />
@@ -102,15 +103,29 @@ export default function StudentsSectionContainer({ editable }) {
         </SectionNav>
       </div>
       {!loading ? (
-        <StudentsTable
-          handlePageChange={handlePageChange}
-          studentsLimit={studentsLimit}
-          students={students}
-          editable={editable}
-          page={page}
-          count={count}
-          handleRemoveStudent={handleRemoveStudent}
-        />
+        students.length ? (
+          <StudentsTable
+            handlePageChange={handlePageChange}
+            studentsLimit={studentsLimit}
+            students={students}
+            editable={editable}
+            page={page}
+            count={count}
+            handleRemoveStudent={handleRemoveStudent}
+          />
+        ) : (
+          <Sheet
+            sx={{
+              minHeight: "40vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#ffffff",
+            }}
+          >
+            <Typography level="h4">No students found!</Typography>
+          </Sheet>
+        )
       ) : (
         <Sheet
           sx={{

@@ -80,6 +80,15 @@ export default function TeacherPageLayout() {
         </Link>
         <Link
           className="hover:cursor-pointer text-lg"
+          to="treatments"
+          spy={true}
+          smooth={true}
+          duration={500}
+        >
+          Treatments
+        </Link>
+        <Link
+          className="hover:cursor-pointer text-lg"
           to="treatment"
           spy={true}
           smooth={true}

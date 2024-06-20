@@ -139,7 +139,10 @@ export default function ClassCard({ classData, handleConfirmRemove }) {
             level="title-md"
             sx={{ color: "#888888", fontWeight: "bold" }}
           >
-            Number Of Students: {classData.studentCount}
+            <Typography sx={{ color: "#666666", fontWeight: "bold" }}>
+              {classData.studentCount}
+            </Typography>{" "}
+            Students
           </Typography>
         </Box>
       </Card>

@@ -8,12 +8,15 @@ const useCreateTreatmentPlan = () => {
   const { user } = useAuth();
 
   const createTreatment = (class_id, content) => {
-    post("/treatments/", {
-      date: new Date().toISOString(),
-      teacher_id: user?.userId,
-      class_id: class_id,
-      content: content,
-    });
+    post(
+      "/treatments/",
+      {
+        date: new Date().toISOString(),
+        teacher_id: user?.userId,
+        class_id: class_id,
+        content: content,
+      }
+    );
   };
 
   useEffect(() => {

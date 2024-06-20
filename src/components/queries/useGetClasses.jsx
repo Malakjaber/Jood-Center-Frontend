@@ -17,7 +17,7 @@ export default function useGetClasses(classId, isGetDetails, revision) {
   }, [classId, isGetDetails, revision]);
 
   useEffect(() => {
-    if (data.message === "success") {
+    if (data?.message === "success") {
       setClasses(data.data || []);
     }
   }, [data]);

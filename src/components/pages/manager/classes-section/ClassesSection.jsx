@@ -22,7 +22,7 @@ export default function ClassesSection() {
   };
 
   useEffect(() => {
-    if (data.message === "success") {
+    if (data?.message === "success") {
       setRevision((rev) => rev + 1);
       setSnackbarProps({
         severity: "success",

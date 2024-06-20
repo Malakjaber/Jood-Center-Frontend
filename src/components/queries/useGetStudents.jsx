@@ -17,13 +17,11 @@ export default function useGetStudents(
   useEffect(() => {
     if (userId && role === "teacher") {
       get(
-        `/students/teacher/${userId}?limit=${limit}&page=${page}&search=${searchTerm}`
+        `/students/teacher/${userId}?limit=${limit}&page=${page}&search=${searchTerm}`,
       );
     } else {
       get(
         `/students?limit=${limit}&page=${page}&search=${searchTerm}`,
-        "",
-        true
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

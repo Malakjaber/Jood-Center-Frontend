@@ -1,9 +1,13 @@
+import { useParams } from "react-router";
 import { titleCase } from "../utils/stringUtils";
+import useGetUserInfo from "../queries/useGetUserInfo";
+import CustomLoader from "../global/CustomLoader";
+import { useEffect } from "react";
 
 const getFields = (data) => {
   const fields = [
     { title: "Name:", data: data.username },
-    { title: "Id:", data: data.teacher_id || data.id },
+    { title: "Id:", data: data.userId },
     { title: "Email:", data: data.email },
     { title: "Phone:", data: data.phone },
     { title: "Address:", data: data.address },
@@ -11,24 +15,34 @@ const getFields = (data) => {
   return fields;
 };
 
-export default function ColleagueInformationPage({ data, role }) {
-  const fields = getFields(data);
+export default function UserInformationPageLayout() {
+  const { id } = useParams();
+
+  const { user, loading } = useGetUserInfo(id);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  if (loading) {
+    return <CustomLoader />;
+  }
 
   return (
     <div className="flex justify-around p-16 min-h-[100vh]">
       <div className="flex flex-col">
         <h1 className="text-4xl font-Itim mb-14">
-          {titleCase(role)} Information
+          {titleCase(user?.role?.name || "")} Information
         </h1>
         <div className="h-full mr-8">
-          {fields.map((field) => {
+          {getFields(user).map((field) => {
             return (
               <div
                 key={field.title}
                 className="flex border-b border-b-lightgray my-5 p-5"
               >
-                <p className=" text-gray text-2xl mr-3">{field.title}</p>
-                <p className=" text-2xl overflow-hidden">{field.data}</p>
+                <p className="text-gray text-2xl mr-3">{field.title}</p>
+                <p className="text-2xl overflow-hidden">{field.data}</p>
               </div>
             );
           })}

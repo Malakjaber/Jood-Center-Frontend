@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import useApi from "../hooks/useApi";
-import { useAuth } from "../contexts/AuthContext";
 
 const useEditStudent = () => {
   const { put, data, error, loading } = useApi();
 
-  const { user } = useAuth();
-
   const editStudent = (studentData) => {
-    put("/student", studentData, user.sessionId);
+    put("/student", studentData);
   };
 
   useEffect(() => {

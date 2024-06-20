@@ -14,12 +14,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import useApi from "../../hooks/useApi";
-import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "../../validation/Validation";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import MySnackbar from "../../global/MySnackbar";
-import { useAuth } from "../../contexts/AuthContext";
 import useRoleRedirect from "../../hooks/useRoleRedirect";
+import useGetRoles from "../../queries/useGetRoles";
+import CustomLoader from "../../global/CustomLoader";
+import { titleCase } from "../../utils/stringUtils";
 
 export default function SignUp() {
   const [snackbarProps, setSnackbarProps] = useState({
@@ -27,6 +28,8 @@ export default function SignUp() {
     content: "",
   });
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const { roles, loading } = useGetRoles();
 
   const { post, data, error } = useApi();
 
@@ -50,11 +53,11 @@ export default function SignUp() {
         email: values.email,
         address: values.address,
         phone: values.phone,
-        id: values.id,
+        userId: values.id,
         password: values.password,
         role: values.role,
       };
-      post(`/users/signup`, body);
+      post(`/auth/signup`, body);
     },
   });
 
@@ -77,6 +80,10 @@ export default function SignUp() {
       setOpenSnackbar(true);
     }
   }, [error]);
+
+  if (loading) {
+    <CustomLoader />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -161,10 +168,9 @@ export default function SignUp() {
                   id: "role-select",
                 }}
               >
-                <option value={"parent"}>Parent</option>
-                <option value={"teacher"}>Teacher</option>
-                <option value={"co_manager"}>Co-Manager</option>
-                <option value={"manager"}>Manager</option>
+                {roles?.map((role) => (
+                  <option value={role?.id}>{titleCase(role?.name)}</option>
+                ))}
               </NativeSelect>
             </FormControl>
             <Grid item xs={6}>

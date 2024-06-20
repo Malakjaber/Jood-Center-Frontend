@@ -47,7 +47,7 @@ export default function DocsTable({
   };
 
   if (rows && !rows?.length) {
-    return <Typography>{emptyMsg}</Typography>;
+    return <Typography level="h4">{emptyMsg}</Typography>;
   }
   return (
     <Sheet

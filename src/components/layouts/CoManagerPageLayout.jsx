@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import NavbarContainer from "../global/NavbarContainer";
-import { Link } from "react-router-dom";
 import StudentsSectionContainer from "./StudentsSectionContainer";
 import Hero from "../pages/co-manager/Hero";
 import useRoleRedirect from "../hooks/useRoleRedirect";
+import { Link } from "react-scroll";
 
 export default function CoManagerPageLayout() {
   useRoleRedirect(["co_manager"]);
@@ -13,7 +12,7 @@ export default function CoManagerPageLayout() {
       <NavbarContainer title={"Co-Manager"}>
         <Link
           className="hover:cursor-pointer text-lg"
-          to="#"
+          to="students"
           spy={true}
           smooth={true}
           duration={500}

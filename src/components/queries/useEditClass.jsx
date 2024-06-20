@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import useApi from "../hooks/useApi";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function useEditClass() {
   const { put, data, error, loading } = useApi();
-  const { user } = useAuth();
 
   const editClass = (classId, className, teacherId) => {
     put(
@@ -12,8 +10,7 @@ export default function useEditClass() {
       {
         name: className,
         teacher_id: teacherId,
-      },
-      user.sessionId
+      }
     );
   };
 

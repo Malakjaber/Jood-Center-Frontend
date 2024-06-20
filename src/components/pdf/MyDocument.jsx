@@ -78,8 +78,10 @@ export default function MyDocument({
                   <Text color="#313cb7f">{report.date}</Text>
                 </Text>
               </View>
-              <View style={{ flexDirection: "row" }}>
-                <Text>{teacherName + ": "}</Text>
+              <View style={{ flexDirection: "column" }}>
+                <Text style={{ marginBottom: "6px" }}>
+                  {teacherName + ": "}
+                </Text>
                 <Text>{report.content}</Text>
               </View>
             </View>
@@ -95,8 +97,8 @@ export default function MyDocument({
                 {treatmentPlan.date}
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text>{teacherName + ": "}</Text>
+            <View style={{ flexDirection: "column" }}>
+              <Text style={{ marginBottom: "6px" }}>{teacherName + ": "}</Text>
               <Text>{treatmentPlan.content}</Text>
             </View>
           </View>

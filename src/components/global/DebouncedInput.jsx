@@ -19,10 +19,15 @@ function DebounceInput(props) {
   );
 }
 
-export default function DebouncedInput({ handleSearch, placeholder }) {
+export default function DebouncedInput({
+  handleSearch,
+  placeholder,
+  isDisabled,
+}) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       <DebounceInput
+        disabled={isDisabled}
         placeholder={placeholder}
         debounceTimeout={1000}
         handleSearch={handleSearch}

@@ -5,11 +5,9 @@ import CoManagerPageLayout from "./components/layouts/CoManagerPageLayout";
 import EditStudentPageLayout from "./components/layouts/EditStudentPageLayout";
 import AddNewStudentPage from "./components/layouts/AddNewStudentPage";
 import ManagerPageLayout from "./components/layouts/ManagerPageLayout";
-import TeacherInformationPage from "./components/layouts/TeacherInformationPage";
 import ClassPageLayout from "./components/layouts/ClassPageLayout";
 import CreateClassPageLayout from "./components/layouts/CreateClassPageLayout";
 import EditClassPageLayout from "./components/layouts/EditClassPageLayout";
-import CoManagerInformationPage from "./components/layouts/CoManagerInformationPage";
 import ReportPageContainer from "./components/layouts/ReportPageContainer";
 import TreatmentPageContainer from "./components/layouts/TreatmentPageContainer";
 import ErrorBoundary from "./components/global/ErrorBoundary";
@@ -24,6 +22,7 @@ import {
 import HomeLayout from "./components/layouts/HomeLayout";
 import ParentPageLayout from "./components/layouts/ParentPageLayout";
 import ErrorPage from "./components/global/ErrorPage";
+import UserInformationPageLayout from "./components/layouts/UserInformationPageLayout";
 
 const router = createBrowserRouter([
   {
@@ -37,9 +36,13 @@ const router = createBrowserRouter([
   },
   { path: "/parent", element: <ParentPageLayout /> },
   { path: "/teacher", element: <TeacherPageLayout /> },
-  { path: "/teacher/:id", element: <TeacherInformationPage /> },
+  {
+    path: "/user/:id",
+    element: <UserInformationPageLayout />,
+  },
+  // { path: "/teacher/:id", element: <TeacherInformationPage /> },
   { path: "/co_manager", element: <CoManagerPageLayout /> },
-  { path: "/co_manager/:id", element: <CoManagerInformationPage /> },
+  // { path: "/co_manager/:id", element: <CoManagerInformationPage /> },
   { path: "/manager", element: <ManagerPageLayout /> },
   {
     path: "/student",

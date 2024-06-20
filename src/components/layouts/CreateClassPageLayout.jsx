@@ -18,9 +18,8 @@ import { createClassSchema } from "../validation/Validation";
 import MySnackbar from "../global/MySnackbar";
 
 export default function CreateClassPageLayout() {
-  const { teachers, loading } = useGetJoodTeam("teachers", 159, 1, "");
+  const { users: teachers, loading } = useGetJoodTeam("teacher", 159, 1);
   const [selectedTeacherId, setSelectedTeacherId] = useState("");
-  const [selectedTeacherValue, setSelectedTeacherValue] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarProps, setSnackbarProps] = useState({
     severity: "",
@@ -31,8 +30,7 @@ export default function CreateClassPageLayout() {
 
   useEffect(() => {
     if (teachers && teachers.length > 0) {
-      setSelectedTeacherId(teachers[0]);
-      setSelectedTeacherValue(teachers[0].username);
+      setSelectedTeacherId(teachers[0].userId);
     }
   }, [teachers]);
 
@@ -121,18 +119,17 @@ export default function CreateClassPageLayout() {
                 }}
                 inputValue={formik.values.selectedTeacher?.username || ""}
                 onInputChange={(event, newInputValue) => {
-                  const selectedTeacher = teachers.find(
-                    (teacher) => teacher.username === newInputValue
-                  );
-                  formik.setFieldValue(
-                    "selectedTeacher",
-                    selectedTeacher || null
-                  );
+                  formik.setFieldValue("selectedTeacher", {
+                    ...formik.values.selectedTeacher,
+                    username: newInputValue,
+                  });
                 }}
-                getOptionLabel={(option) => option.username}
+                getOptionLabel={(option) => option.username || ""}
                 options={teachers}
                 sx={{ width: 300 }}
-                required
+                renderInput={(params) => (
+                  <Input {...params} placeholder="Select Teacher" required />
+                )}
               />
             </FormControl>
           </Grid>

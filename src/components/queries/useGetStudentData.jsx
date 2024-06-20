@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useApi from "../hooks/useApi";
+import { useAuth } from "../contexts/AuthContext";
 
 const useGetStudentData = (studentId) => {
   const [studentData, setStudentData] = useState({});

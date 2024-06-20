@@ -3,7 +3,6 @@ import StudentDetailsForm from "../global/StudentDetailsForm";
 import useRoleRedirect from "../hooks/useRoleRedirect";
 import { addStudentSchema } from "../validation/Validation";
 import useApi from "../hooks/useApi";
-import { useAuth } from "../contexts/AuthContext";
 import useGetClasses from "../queries/useGetClasses";
 import { useEffect, useState } from "react";
 import MySnackbar from "../global/MySnackbar";
@@ -15,7 +14,6 @@ export default function AddNewStudentPage() {
     content: "",
   });
   const { put, loading, error, data: addStudentRes } = useApi();
-  const { user } = useAuth();
 
   useRoleRedirect(["co_manager", "manager"]);
 
@@ -36,7 +34,7 @@ export default function AddNewStudentPage() {
     validationSchema: addStudentSchema,
     onSubmit: (values) => {
       console.log(values);
-      put(`/students/`, values, user.sessionId);
+      put(`/students/`, values);
     },
   });
 

@@ -13,7 +13,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import { MoreVert } from "@mui/icons-material";
 
-const PositionedMenu = ({ id, position }) => {
+const PositionedMenu = ({ id, role }) => {
   return (
     <Dropdown>
       <MenuButton
@@ -23,10 +23,7 @@ const PositionedMenu = ({ id, position }) => {
         <MoreVert />
       </MenuButton>
       <Menu placement="bottom-end">
-        <MenuItem
-          component={Link}
-          to={`/${position === "teachers" ? "teacher" : "co_manager"}/${id}`}
-        >
+        <MenuItem component={Link} to={`/user/${id}`}>
           Details
         </MenuItem>
       </Menu>
@@ -101,8 +98,8 @@ export default function CustomTable({
   page,
   setRowsPerPage,
   rowsPerPage,
-  count,
-  position,
+  count = 9,
+  role,
 }) {
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -114,12 +111,12 @@ export default function CustomTable({
   };
 
   const getLabelDisplayedRowsTo = () => {
-    if (rows?.length === -1) {
-      return (page + 1) * rowsPerPage;
-    }
-    return rowsPerPage === -1
-      ? rows?.length
-      : Math.min(rows?.length, (page + 1) * rowsPerPage);
+    const totalRows = count;
+    const currentPage = page;
+    const rowsDisplayed = rowsPerPage;
+
+    const endIndex = (currentPage + 1) * rowsDisplayed;
+    return totalRows < endIndex ? totalRows : endIndex;
   };
 
   if (rows && !rows?.length) {
@@ -159,7 +156,7 @@ export default function CustomTable({
                 <td>{row.phone || "-"}</td>
                 <td>{row.address || "-"}</td>
                 <td>
-                  <PositionedMenu id={row.id} position={position} />
+                  <PositionedMenu id={row.id} position={role} />
                 </td>
               </tr>
             );
@@ -209,11 +206,7 @@ export default function CustomTable({
                     size="sm"
                     color="neutral"
                     variant="outlined"
-                    disabled={
-                      count !== 0
-                        ? page >= Math.ceil(count / rowsPerPage)
-                        : false
-                    }
+                    disabled={page >= Math.ceil(count / rowsPerPage) - 1}
                     onClick={() => handleChangePage(page + 1)}
                     sx={{ bgcolor: "background.surface" }}
                   >
