@@ -5,8 +5,8 @@ const useAxiosInstance = () => {
   const { getItem } = useLocalStorage();
 
   const instance = axios.create({
-    // baseURL: "https://jood-center-backend-v2.onrender.com/",
-    baseURL: "http://localhost:3001",
+    baseURL: "https://jood-center-backend-v2.onrender.com/",
+    // baseURL: "http://localhost:3001",
   });
 
   instance.interceptors.request.use(
