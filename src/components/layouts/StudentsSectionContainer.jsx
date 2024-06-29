@@ -8,6 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 import useGetStudents from "../queries/useGetStudents";
 import useDeleteStudent from "../queries/useDeleteStudent";
 import MySnackbar from "../global/MySnackbar";
+import CustomLoader from "../global/CustomLoader";
 
 export default function StudentsSectionContainer({ editable }) {
   const [page, setPage] = useState(1);
@@ -32,7 +33,11 @@ export default function StudentsSectionContainer({ editable }) {
     content: "",
   });
 
-  const { deleteSt, data: deleteStResponse } = useDeleteStudent();
+  const {
+    deleteSt,
+    data: deleteStResponse,
+    loading: deleteLoading,
+  } = useDeleteStudent();
 
   useEffect(() => {
     if (deleteStResponse?.message === "success") {
@@ -71,6 +76,10 @@ export default function StudentsSectionContainer({ editable }) {
   const handleRemoveStudent = (studentId) => {
     deleteSt(studentId);
   };
+
+  if (deleteLoading) {
+    return <CustomLoader />;
+  }
   return (
     <div id="students" className="border-t-2 border-t-lightgray pb-8 mb-20">
       <MySnackbar

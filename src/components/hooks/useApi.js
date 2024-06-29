@@ -65,7 +65,7 @@
 //   return { data, loading, error, get, post, deleteReq, put };
 // }
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import useAxiosInstance from "./axiosInstance";
 
 export default function useApi() {
@@ -73,10 +73,6 @@ export default function useApi() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const axiosInstance = useAxiosInstance();
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const request = useCallback(
     async (method, url, body = null) => {

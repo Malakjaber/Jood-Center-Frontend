@@ -6,10 +6,11 @@ import FormLabel from "@mui/joy/FormLabel";
 import Stack from "@mui/joy/Stack";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
+import { FormHelperText } from "@mui/joy";
 export default function StudentDetailsForm({ formik, classes, loading }) {
   return (
     <Stack component={"form"} onSubmit={formik.handleSubmit} spacing={2}>
-      <FormControl>
+      <FormControl error={formik.touched.name && Boolean(formik.errors.name)}>
         <FormLabel>Name</FormLabel>
         <Input
           variant="outlined"
@@ -18,12 +19,15 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.name}
           onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
         />
+        <FormHelperText>
+          {formik.touched.name && formik.errors.name}
+        </FormHelperText>
       </FormControl>
       {formik.values.addSt ? (
-        <FormControl>
+        <FormControl
+          error={formik.touched.st_id && Boolean(formik.errors.st_id)}
+        >
           <FormLabel>Id</FormLabel>
           <Input
             name="st_id"
@@ -32,12 +36,16 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
             onChange={formik.handleChange}
             value={formik.values.st_id}
             onBlur={formik.handleBlur}
-            error={formik.touched.st_id && Boolean(formik.errors.st_id)}
             helperText={formik.touched.st_id && formik.errors.st_id}
           />
+          <FormHelperText>
+            {formik.touched.st_id && formik.errors.st_id}
+          </FormHelperText>
         </FormControl>
       ) : null}
-      <FormControl>
+      <FormControl
+        error={formik.touched.birth_date && Boolean(formik.errors.birth_date)}
+      >
         <FormLabel>Date of birth</FormLabel>
         <Input
           name="birth_date"
@@ -48,11 +56,17 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.birth_date}
           onBlur={formik.handleBlur}
-          error={formik.touched.birth_date && Boolean(formik.errors.birth_date)}
-          helperText={formik.touched.birth_date && formik.errors.birth_date}
         />
+        <FormHelperText>
+          {formik.touched.birth_date && formik.errors.birth_date}
+        </FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl
+        error={
+          formik.touched.pathological_case &&
+          Boolean(formik.errors.pathological_case)
+        }
+      >
         <FormLabel>Pathological case</FormLabel>
         <Input
           name="pathological_case"
@@ -61,29 +75,29 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.pathological_case}
           onBlur={formik.handleBlur}
-          error={
-            formik.touched.pathological_case &&
-            Boolean(formik.errors.pathological_case)
-          }
-          helperText={
-            formik.touched.pathological_case && formik.errors.pathological_case
-          }
         />
+        <FormHelperText>
+          {formik.touched.pathological_case && formik.errors.pathological_case}
+        </FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl error={formik.touched.phone && formik.errors.phone}>
         <FormLabel>Phone</FormLabel>
         <Input
           name="phone"
           required
           variant="outlined"
+          type="phone"
           onChange={formik.handleChange}
           value={formik.values.phone}
           onBlur={formik.handleBlur}
-          error={formik.touched.phone && formik.errors.phone}
-          helperText={formik.touched.phone && formik.errors.phone}
         />
+        <FormHelperText>
+          {formik.touched.phone && formik.errors.phone}
+        </FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl
+        error={formik.touched.address && Boolean(formik.errors.address)}
+      >
         <FormLabel>Address</FormLabel>
         <Input
           name="address"
@@ -91,11 +105,14 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.address}
           onBlur={formik.handleBlur}
-          error={formik.touched.address && Boolean(formik.errors.address)}
-          helperText={formik.touched.address && formik.errors.address}
         />
+        <FormHelperText>
+          {formik.touched.address && formik.errors.address}
+        </FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl
+        error={formik.touched.medicines && Boolean(formik.errors.medicines)}
+      >
         <FormLabel>Medicines</FormLabel>
         <Input
           name="medicines"
@@ -104,11 +121,14 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.medicines}
           onBlur={formik.handleBlur}
-          error={formik.touched.medicines && Boolean(formik.errors.medicines)}
-          helperText={formik.touched.medicines && formik.errors.medicines}
         />
+        <FormHelperText>
+          {formik.touched.medicines && formik.errors.medicines}
+        </FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl
+        error={formik.touched.parent_id && Boolean(formik.errors.parent_id)}
+      >
         <FormLabel>Parent Id</FormLabel>
         <Input
           name="parent_id"
@@ -117,12 +137,16 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
           onChange={formik.handleChange}
           value={formik.values.parent_id}
           onBlur={formik.handleBlur}
-          error={formik.touched.medicines && Boolean(formik.errors.medicines)}
-          helperText={formik.touched.parent_id && formik.errors.parent_id}
         />
+        <FormHelperText>
+          {formik.touched.parent_id && formik.errors.parent_id}
+        </FormHelperText>
       </FormControl>
       {classes[0] ? (
-        <FormControl sx={{ mt: 2 }}>
+        <FormControl
+          sx={{ mt: 2 }}
+          error={formik.touched.class_id && Boolean(formik.errors.class_id)}
+        >
           <InputLabel id="class-select-label">Class</InputLabel>
           <Select
             labelId="class-select-label"
@@ -133,8 +157,6 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
             }
             value={formik.values.class_id}
             onBlur={formik.handleBlur}
-            error={formik.touched.class_id && Boolean(formik.errors.class_id)}
-            helperText={formik.touched.class_id && formik.errors.class_id}
             label="Class"
           >
             {classes.map(({ class_id: classId, name }) => (
@@ -143,6 +165,9 @@ export default function StudentDetailsForm({ formik, classes, loading }) {
               </Option>
             ))}
           </Select>
+          <FormHelperText>
+            {formik.touched.class_id && formik.errors.class_id}
+          </FormHelperText>
         </FormControl>
       ) : (
         <></>

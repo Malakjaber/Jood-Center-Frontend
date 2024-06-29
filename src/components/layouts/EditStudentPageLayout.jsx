@@ -38,14 +38,9 @@ export default function EditStudentPageLayout() {
     class_id,
   } = studentData;
 
-  useEffect(() => {
-    console.log(studentData);
-  }, [studentData]);
-
   const formik = useFormik({
     initialValues: {
       name: name || "",
-      // st_id: st_id || "",
       birth_date: birth_date || "",
       pathological_case: pathological_case || "",
       phone: phone || "",

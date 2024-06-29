@@ -58,10 +58,10 @@ export default function ParentPageLayout() {
   const { user } = useAuth();
 
   const { student } = useGetStudentByParent(user?.userId);
-  const [reportsLimit, setReportsLimit] = useState(5);
+  const [reportsLimit, setReportsLimit] = useState(8);
   const [reportsPage, setReportsPage] = useState(1);
 
-  const [treatmentsLimit, setTreatmentsLimit] = useState(5);
+  const [treatmentsLimit, setTreatmentsLimit] = useState(8);
   const [treatmentsPage, setTreatmentsPage] = useState(1);
 
   const {
@@ -81,7 +81,7 @@ export default function ParentPageLayout() {
     treatments,
     count: treatmentsCount,
     loading: treatmentsLoading,
-  } = useGetStudentTreatments(student?.st_id);
+  } = useGetStudentTreatments(student?.st_id, treatmentsLimit, treatmentsPage);
 
   return (
     <div>
@@ -110,7 +110,7 @@ export default function ParentPageLayout() {
       <SectionNav id="reports" title={"Reports"} />
 
       {!reportsLoading ? (
-        <div className="min-h-[50vh] flex justify-center items-center">
+        <div className="min-h-[50vh] flex justify-center items-center my-5">
           <DocsTable
             rows={reports}
             headCells={reportsHeadCells}
@@ -137,7 +137,7 @@ export default function ParentPageLayout() {
       )}
       <SectionNav title={"Treatments"} id="treatments" />
       {!treatmentsLoading ? (
-        <div className="min-h-[50vh] flex justify-center items-center">
+        <div className="min-h-[50vh] flex justify-center items-center my-5">
           <DocsTable
             rows={treatments}
             emptyMsg={"No Treatments Found!"}

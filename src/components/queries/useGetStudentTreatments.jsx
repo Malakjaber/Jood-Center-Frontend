@@ -16,7 +16,7 @@ export default function useGetStudentTreatments(st_id, limit, page) {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [st_id]);
+  }, [st_id, limit, page]);
 
   useEffect(() => {
     if (data.message === "success") {
